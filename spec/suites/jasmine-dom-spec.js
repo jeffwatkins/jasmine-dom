@@ -180,6 +180,37 @@ describe("jasmine.Fixtures", function() {
       var element = sandbox(attributes);
       expect(element.id).toEqual(attributes.id);
     });
+    
+    describe("with string parameter specified", function(){
+      it("should create a node with id sandbox", function() {
+        var sandbox= jasmine.getFixtures().sandbox("abc");
+        expect(sandbox.id).toEqual('sandbox');
+        expect(sandbox.innerHTML).toEqual("abc");
+      });
+
+      describe("with one tag", function() {
+        it("should return a node for the tag rather than nest the tag", function() {
+          var sandbox= jasmine.getFixtures().sandbox("<span></span>");
+          expect(sandbox.id).toEqual('sandbox');
+          expect(sandbox.innerHTML).toEqual('');
+        });
+
+        it("should be able to override the id in the tag", function() {
+          var sandbox= jasmine.getFixtures().sandbox('<span id="zebra"></span>');
+          expect(sandbox.id).toEqual('zebra');
+        });
+      });
+      
+      describe("with two tags", function() {
+        it("should return a container with both tags", function() {
+          var sandbox= jasmine.getFixtures().sandbox("<span></span><div></div>");
+          expect(sandbox.id).toEqual('sandbox');
+          expect(sandbox.childNodes.length).toEqual(2);
+        });
+      });
+            
+    });
+    
   });
 
   describe("cleanUp", function() {
@@ -348,7 +379,7 @@ describe("DOM matchers", function() {
 
   describe("toHaveValue", function() {
     var value = 'some value';
-    var differentValue = 'different value'
+    var differentValue = 'different value';
 
     beforeEach(function() {
       var node= document.createElement('input');
