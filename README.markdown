@@ -45,6 +45,7 @@ Several methods for loading fixtures are provided:
     Loads fixture(s) from one or more files but instead of appending them to the DOM returns them as a string (useful if you want to process fixture's content directly in your test).
     
 - `set(html)`
+
     Doesn't load fixture from file, but instead gets it directly as a parameter. Automatically appends fixture to the DOM (to the fixtures container). It is useful if your fixture is too simple to keep it in an external file or is constructed procedurally, but you still want Fixture module to automatically handle DOM insertion and clean-up between tests for you.
   
 All of above methods have matching global short cuts:
@@ -83,6 +84,12 @@ Sandbox method is useful if you want to quickly create simple fixtures in your t
     //  .. run your code
     expect(document.getElementById('sandbox')).not.toHaveClass('my-class');
 
+You may also pass a string to `sandbox` to define your DOM nodes. For example:
+
+    var node= sandbox("<span>This is my span...</span>");
+    
+When called with a string containing only a single node, `sandbox` will remove the wrapping DIV it normally creates and just return the inner node. While passing a string with multiple nodes will keep the wrapper.
+
 This method also has a global short cut available:
 
 - `sandbox([{attributeName: value[, attributeName: value, ...]}])`
@@ -90,9 +97,12 @@ This method also has a global short cut available:
 Additionally, two clean up methods are provided:
 
 - `clearCache()`
-  purges Fixture module internal cache (you should need it only in very special cases; typically, if you need to use it, it may indicate a smell in your test code)
+
+    purges Fixture module internal cache (you should need it only in very special cases; typically, if you need to use it, it may indicate a smell in your test code)
+    
 - `cleanUp()`
-  cleans-up fixtures container (this is done automatically between tests by Fixtures module, so there is no need to ever invoke this manually, unless you're testing a really fancy special case and need to clean-up fixtures in the middle of your test)
+
+    cleans-up fixtures container (this is done automatically between tests by Fixtures module, so there is no need to ever invoke this manually, unless you're testing a really fancy special case and need to clean-up fixtures in the middle of your test)
   
 These two methods do not have global short cut functions.
 
@@ -117,30 +127,43 @@ jasmine-dom provides following custom matchers (in alphabetical order):
 
 - `toContain(selector)`: Tests whether this node contains nodes that match the selector.
 
-        var node= sandbox('<div>
-  - e.g. `expect(node).toContain('span.some-class')`
-- `toExist()`
-- `toHaveAttr(attributeName, attributeValue)`
-  - attribute value is optional, if omitted it will check only if attribute exists
-- `toHaveClass(className)`
-  - e.g. `expect($('<div class="some-class"></div>')).toHaveClass("some-class")`  
-- `toHaveHtml(string)`
-  - e.g. `expect($('<div><span></span></div>')).toHaveHtml('<span></span>')`
-- `toHaveId(id)`
-  - e.g. `expect($('<div id="some-id"></div>')).toHaveId("some-id")`
-- `toHaveText(string)`
-  - e.g. `expect($('<div>some text</div>')).toHaveText('some text')`
-- `toHaveValue(value)`
-  - only for tags that have value attribute
-  - e.g. `expect($('<input type="text" value="some text"/>')).toHaveValue('some text')`
-- `toMatchSelector(selector)`
-  - e.g. `expect(node).toMatchSelector('div#some-id')`
+        var node= sandbox("<div><span class="some-class"></span></div>");
+        expect(node).toContain('span.some-class');
+
+- `toExist()`: This test is essentially the equivalent to `not.toBeNull()`.
+
+- `toHaveAttr(attributeName, attributeValue)`: Tests whether the node has an attribute and if specified, whether the attribute has the given value.
+
+- `toHaveClass(className)`: Test whether the node has the given class name.
+
+        var node= sandbox('<div class="some-class"></div>');
+        expect(node).toHaveClass("some-class")
+    
+- `toHaveHtml(string)`: Tests whether the node contains the given HTML. This should work regardless of whether your tags are uppercase or lowercase.
+
+        var node= sandbox('<div><span></span></div>');
+        expect(node).toHaveHtml('<span></span>')
+        
+- `toHaveId(id)`: Validates that a node has the specified ID.
+
+        var node= sandbox('<div id="some-id"></div>');
+        expect(node).toHaveId("some-id")
+        
+- `toHaveText(string)`: Like the `toHaveHtml` matcher, this matcher confirms that the node contains the exact text specified.
+
+        var node= sandbox('<div>some text</div>');
+        expect(node).toHaveText('some text')
+        
+- `toHaveValue(value)`: For nodes with a value attribute, this matcher will confirm the node has the given value.
+
+        var node= sandbox('<input type="text" value="some text">');
+        expect(node).toHaveValue('some text')
+        
+- `toMatchSelector(selector)`: Test whether the node matches a given CSS selector. This matcher requires a selector engine, however, it will work with the engines present in jQuery, Prototype, and Coherent. In addition, it will work if your browser supports a native implementation of `querySelectorAll`.
+
+        var node= sandbox('<div id="some-id" class="zebra"></div>');
+        expect(node).toMatchSelector('div#some-id')
  
 The same as with standard Jasmine matchers, all of above custom matchers may be inverted by using `.not` prefix, e.g.:
 
     expect(node).not.toHaveText('other text')
-
-## Supported browsers and jQuery versions
-
-jasmine-jquery was tested for jQuery 1.4 on IE, FF, Chrome and Opera.
-
