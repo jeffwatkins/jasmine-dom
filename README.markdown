@@ -37,9 +37,13 @@ There are also global short cut functions available for the most used methods, s
 Several methods for loading fixtures are provided:
 
 - `load(fixtureUrl[, fixtureUrl, ...])`
+
     Loads fixture(s) from one or more files and automatically appends them to the DOM (to the fixtures container).
+    
 - `read(fixtureUrl[, fixtureUrl, ...])`
+
     Loads fixture(s) from one or more files but instead of appending them to the DOM returns them as a string (useful if you want to process fixture's content directly in your test).
+    
 - `set(html)`
     Doesn't load fixture from file, but instead gets it directly as a parameter. Automatically appends fixture to the DOM (to the fixtures container). It is useful if your fixture is too simple to keep it in an external file or is constructed procedurally, but you still want Fixture module to automatically handle DOM insertion and clean-up between tests for you.
   
