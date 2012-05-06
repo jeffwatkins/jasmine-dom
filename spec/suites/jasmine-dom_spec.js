@@ -443,14 +443,31 @@ describe("DOM matchers", function() {
     });
 
     it("should pass negated on hidden element", function() {
+      var node=sandbox();
+      node.style.display='none';
+      setFixtures(node);
+      expect(findSandbox()).not.toBeVisible();
+    });
+
+    it("should pass negated on hidden element", function() {
+      var node=sandbox();
+      node.style.visibility='hidden';
+      setFixtures(node);
       expect(findSandbox()).not.toBeVisible();
     });
   });
 
   describe("toBeHidden", function() {
     it("should pass on hidden element", function() {
-      var node= sandbox();
+      var node=sandbox();
       node.style.display='none';
+      setFixtures(node);
+      expect(findSandbox()).toBeHidden();
+    });
+
+    it("should pass on hidden element", function() {
+      var node=sandbox();
+      node.style.visibility='hidden';
       setFixtures(node);
       expect(findSandbox()).toBeHidden();
     });
