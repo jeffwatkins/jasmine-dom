@@ -106,7 +106,7 @@ Additionally, two clean up methods are provided:
   
 These two methods do not have global short cut functions.
 
-**Some browsers (Chrome) have difficulty loading fixtures from file:// URLs. It's best to avoid using file URLs and use a web server instead. See [Issue 1](https://github.com/jeffwatkins/jasmine-dom/issues/1) for more information.**
+**Some browsers (Chrome) have difficulty loading fixtures from file:// URLs.  It's best to avoid using file URLs and use a web server instead; with Python installed, this is as easy as running `python -mSimpleHTTPServer`. See [Issue 1](https://github.com/jeffwatkins/jasmine-dom/issues/1) for more information.**
 
 ## DOM matchers
 
