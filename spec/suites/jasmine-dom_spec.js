@@ -442,15 +442,32 @@ describe("DOM matchers", function() {
       expect(findSandbox()).toBeVisible();
     });
 
+    it("should pass negated on non-displayed element", function() {
+      var node=sandbox();
+      node.style.display='none';
+      setFixtures(node);
+      expect(findSandbox()).not.toBeVisible();
+    });
+
     it("should pass negated on hidden element", function() {
+      var node=sandbox();
+      node.style.visibility='hidden';
+      setFixtures(node);
       expect(findSandbox()).not.toBeVisible();
     });
   });
 
   describe("toBeHidden", function() {
-    it("should pass on hidden element", function() {
-      var node= sandbox();
+    it("should pass on non-displayed element", function() {
+      var node=sandbox();
       node.style.display='none';
+      setFixtures(node);
+      expect(findSandbox()).toBeHidden();
+    });
+
+    it("should pass on hidden element", function() {
+      var node=sandbox();
+      node.style.visibility='hidden';
       setFixtures(node);
       expect(findSandbox()).toBeHidden();
     });
