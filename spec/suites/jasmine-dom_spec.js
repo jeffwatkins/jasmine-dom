@@ -442,7 +442,7 @@ describe("DOM matchers", function() {
       expect(findSandbox()).toBeVisible();
     });
 
-    it("should pass negated on hidden element", function() {
+    it("should pass negated on non-displayed element", function() {
       var node=sandbox();
       node.style.display='none';
       setFixtures(node);
@@ -458,7 +458,7 @@ describe("DOM matchers", function() {
   });
 
   describe("toBeHidden", function() {
-    it("should pass on hidden element", function() {
+    it("should pass on non-displayed element", function() {
       var node=sandbox();
       node.style.display='none';
       setFixtures(node);
