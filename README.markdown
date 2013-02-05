@@ -118,13 +118,13 @@ jasmine-dom provides following custom matchers (in alphabetical order):
         expect(node).toBeChecked()
         
 - `toBeEmpty()`: Tests whether the node is empty. A node is only empty if it has no child nodes.
-- `toBeHidden()`: Tests whether the node is hidden. A node is considered hidden if both its `offsetWidth` and `offsetHeight` are 0. This may be caused by a display value of `none` either on the node or an ancestor node, or because the size of this node has been explicitly set to 0x0.
+- `toBeHidden()`: Tests whether the node is hidden. A node is considered hidden if both its `offsetWidth` and `offsetHeight` are 0, or if the `visibility` CSS attribute is set to `hidden`. This may be caused by a display value of `none` either on the node or an ancestor node, or because the size of this node has been explicitly set to 0x0.
 - `toBeSelected()`: For nodes with a selected attribute, this matcher tests whether the attribute is set to `true`.
 
         var node= sandbox('<option selected="selected"></option>');
         expect(node).toBeSelected()
         
-- `toBeVisible()`: This matcher is the inverse of `toBeHidden`. If a node has a dimensions other than 0, it is visible.
+- `toBeVisible()`: This matcher is the inverse of `toBeHidden`. If a node has a dimensions other than 0 and the CSS attribute `visibility` is not set to `hidden`, it is visible.
 
 - `toContain(selector)`: Tests whether this node contains nodes that match the selector.
 
