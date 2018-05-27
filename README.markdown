@@ -1,6 +1,6 @@
 # jasmine-dom
 
-jasmine-dom was inspired by the [jasmine-jquery add-on](http://github.com/velesin/jasmine-jquery) for [Jasmine](http://pivotal.github.com/jasmine/) JavaScript Testing Framework. This add-on provides a set of custom matchers for working with DOM nodes and an API for handling HTML fixtures in your spec.
+jasmine-dom was inspired by the [jasmine-jquery add-on](http://github.com/velesin/jasmine-jquery) for [Jasmine](https://jasmine.github.io/) JavaScript Testing Framework. This add-on provides a set of custom matchers for working with DOM nodes and an API for handling HTML fixtures in your spec.
 
 ## Installation
 
