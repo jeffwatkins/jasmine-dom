@@ -1,1 +1,2 @@
-spec/jasmine-1.0.1
+/spec/jasmine
+*.sw[op]
